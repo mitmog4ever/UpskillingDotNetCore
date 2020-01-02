@@ -16,11 +16,18 @@ namespace EmployeeCRUD.Models
         [Required]
         public string CIN { get; set; }
         [Required]
+        public string Adresse { get; set; }
+        [Required]
+        public int Tele { get; set; }
+        [Required]
+        public string Fonction { get; set; }
+        [Required]
         public string Sexe { get; set; }
+ 
         [Required]
         public string Departement { get; set; }
         [Required]
-        public float Salaire{ get; set; }
+        public Decimal Salaire{ get; set; }
 
     }
 }

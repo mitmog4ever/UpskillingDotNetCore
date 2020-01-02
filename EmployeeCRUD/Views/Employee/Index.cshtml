@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EmployeeCRUD.Models.Employee>
+﻿@model EmployeeCRUD.Models.MultiModels
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,36 +6,142 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateOrUpdate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="@Model.Emp.EmployeeId" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Emp.Nom" class="control-label"></label>
+                <input asp-for="@Model.Emp.Nom" class="form-control" />
+                <span asp-validation-for="@Model.Emp.Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Emp.Prenom" class="control-label"></label>
+                <input asp-for="@Model.Emp.Prenom" class="form-control" />
+                <span asp-validation-for="@Model.Emp.Prenom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Emp.CIN" class="control-label"></label>
+                <input asp-for="@Model.Emp.CIN" class="form-control" />
+                <span asp-validation-for="@Model.Emp.CIN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Emp.Sexe" class="control-label"></label>
+                <input asp-for="@Model.Emp.Sexe" class="form-control" />
+                <span asp-validation-for="@Model.Emp.Sexe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Emp.Departement" class="control-label"></label>
+                <input asp-for="@Model.Emp.Departement" class="form-control" />
+                <span asp-validation-for="@Model.Emp.Departement" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Emp.Salaire" class="control-label"></label>
+                <input asp-for="@Model.Emp.Salaire" class="form-control" />
+                <span asp-validation-for="@Model.Emp.Salaire" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Emp.Adresse" class="control-label"></label>
+                <input asp-for="@Model.Emp.Adresse" class="form-control" />
+                <span asp-validation-for="@Model.Emp.Adresse" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Emp.Tele" class="control-label"></label>
+                <input asp-for="@Model.Emp.Tele" class="form-control" />
+                <span asp-validation-for="@Model.Emp.Tele" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Emp.Fonction" class="control-label"></label>
+                <input asp-for="@Model.Emp.Fonction" class="form-control" />
+                <span asp-validation-for="@Model.Emp.Fonction" class="text-danger"></span>
+            </div>
+            @{
+                if (Model.Emp.EmployeeId == 0)
+                {
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-success" />
+                    </div>
+                }
 
-@*Pour affichage les infos des employees *@
+            }
+
+
+        </form>
+    </div>
+
+</div>
+
+@section scripts{ 
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+
+@*Pour affichage des infos des employees *@
 
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Nom)</th>
-            <th>@Html.DisplayNameFor(model => model.Prenom)</th>
-            <th>@Html.DisplayNameFor(model => model.CIN)</th>
-            <th>@Html.DisplayNameFor(model => model.Sexe)</th>
-            <th>@Html.DisplayNameFor(model => model.Departement)</th>
-            <th>@Html.DisplayNameFor(model => model.Salaire)</th>
+            <th>@Html.DisplayNameFor(model => model.Emp.Nom)</th>
+            <th>@Html.DisplayNameFor(model => model.Emp.Prenom)</th>
+            <th>@Html.DisplayNameFor(model => model.Emp.CIN)</th>
+            <th>@Html.DisplayNameFor(model => model.Emp.Sexe)</th>
+            <th>@Html.DisplayNameFor(model => model.Emp.Departement)</th>
+            <th>@Html.DisplayNameFor(model => model.Emp.Salaire)</th>
+            <th>@Html.DisplayNameFor(model => model.Emp.Adresse)</th>
+            <th>@Html.DisplayNameFor(model => model.Emp.Fonction)</th>
+            <th>@Html.DisplayNameFor(model => model.Emp.Tele)</th>
         </tr>
+    </thead>
+    <tbody>
+        @foreach (var empl in Model.LstEmployee)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelitem => empl.Nom)</td>
+                <td>@Html.DisplayFor(modelItem => empl.Prenom)</td>
+                <td>@Html.DisplayFor(modelItem => empl.CIN)</td>
+                <td>@Html.DisplayFor(modelItem => empl.Sexe)</td>
+                <td>@Html.DisplayFor(modelItem => empl.Departement)</td>
+                <td>@Html.DisplayFor(modelItem => empl.Salaire)</td>
+                <td>@Html.DisplayFor(modelItem => empl.Adresse)</td>
+                <td>@Html.DisplayFor(modelItem => empl.Fonction)</td>
+                <td>@Html.DisplayFor(modelItem => empl.Tele)</td>
+                <td><a asp-action="Update" asp-route-id="@empl.EmployeeId">Edit</a></td>
+                <td><a asp-action="Delete" asp-route-id="@empl.EmployeeId" onclick="return confirm('Are you sure to delete this record?')">Delete</a></td>
+            </tr>
+        }
+    </tbody>     
+        
 </table>
-<tbody>
-    @foreach(var emp in Model)
-    {
-    <tr>
-        <td>@Html.DisplayFor(modelItem => emp.Nom)</td>
-        <td>@Html.DisplayFor(modelItem => emp.Prenom)</td>
-        <td>@Html.DisplayFor(modelItem => emp.CIN)</td>
-        <td>@Html.DisplayFor(modelItem => emp.Sexe)</td>
-        <td>@Html.DisplayFor(modelItem => emp.Departement)</td>
-        <td>@Html.DisplayFor(modelItem => emp.Salaire)</td>
-        <td><a asp-action="Edit" asp-route-id="@emp.EmployeeId">Edit</a></td>
-        <td><a asp-action="Details" asp-route-id="@emp.EmployeeId">Edit</a></td>
-        <td><a asp-action="Delete" asp-route-id="@emp.EmployeeId">Edit</a></td>
-</tr>
-    }
-</tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

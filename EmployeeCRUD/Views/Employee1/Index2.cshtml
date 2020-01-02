@@ -1,0 +1,129 @@
+﻿@model EmployeeCRUD.Models.MultiModels
+@{
+    ViewData["Title"] = "Index2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+<div class="container">
+    <div calss="row">
+        <div class="col-md-4">
+            <form asp-action="CreateOrUpdate">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input asp-for="@Model.Emp.EmployeeId" type="hidden" />
+                </div>
+                <div class="form-group">
+                    <lable asp-for="@Model.Emp.Nom" class="control-label"></lable>
+                    <input asp-for="@Model.Emp.Nom" class="form-control" />
+                    <span asp-validation-for="@Model.Emp.Nom" class="test-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Emp.Prenom" class="control-label"></label>
+                    <input asp-for="@Model.Emp.Prenom" class="form-control">
+                    <span asp-validation-for="@Model.Emp.Prenom" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Emp.CIN" class="control-label"></label>
+                    <input asp-for="@Model.Emp.CIN" class="form-control" />
+                    <span asp-validation-for="@Model.Emp.CIN" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Emp.Sexe" class="control-label"></label>
+                    <select asp-for="@Model.Emp.Sexe" class="form-control form-control-lg">
+                        <option>    </option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                    <span asp-validation-for="@Model.Emp.Sexe" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Emp.Departement" class="control-label"></label>
+                    <input asp-for="@Model.Emp.Departement" class="form-control" />
+                    <span asp-validation-for="@Model.Emp.Departement" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Emp.Salaire" class="control-label"></label>
+                    <input asp-for="@Model.Emp.Salaire" class="form-control" />
+                    <span asp-validation-for="@Model.Emp.Salaire" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Emp.Adresse" class="control-label"></label>
+                    <input asp-for="@Model.Emp.Adresse" class="form-control" />
+                    <span asp-validation-for="@Model.Emp.Adresse" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Emp.Tele" class="control-label"></label>
+                    <input asp-for="@Model.Emp.Tele" class="form-control" />
+                    <span asp-validation-for="@Model.Emp.Tele" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Emp.Fonction" class="control-label"></label>
+                    <input asp-for="@Model.Emp.Fonction" class="form-control" />
+                    <span asp-validation-for="@Model.Emp.Fonction" class="text-danger"></span>
+                </div>
+                @{
+                    if (Model.Emp.EmployeeId == 0)
+                    {
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <input type="submit" value="Update" class="btn btn-success" />
+                        </div>
+                    }
+                }
+            </form>
+        </div>
+
+
+    </div>
+</div>
+
+@section scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+<div class="container">
+    <h1>Liste des employée</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Emp.Nom)</th>
+                <th>@Html.DisplayNameFor(model => model.Emp.Prenom)</th>
+                <th>@Html.DisplayNameFor(model => model.Emp.CIN)</th>
+                <th>@Html.DisplayNameFor(model => model.Emp.Sexe)</th>
+                <th>@Html.DisplayNameFor(model => model.Emp.Departement)</th>
+                <th>@Html.DisplayNameFor(model => model.Emp.Salaire)</th>
+                <th>@Html.DisplayNameFor(model => model.Emp.Adresse)</th>
+                <th>@Html.DisplayNameFor(model => model.Emp.Fonction)</th>
+                <th>@Html.DisplayNameFor(model => model.Emp.Tele)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ 
+                foreach(var empl in Model.LstEmployee)
+                {
+                        <tr>
+                            <td>@Html.DisplayFor(modelitem => empl.Nom)</td>
+                            <td>@Html.DisplayFor(modelItem => empl.Prenom)</td>
+                            <td>@Html.DisplayFor(modelItem => empl.CIN)</td>
+                            <td>@Html.DisplayFor(modelItem => empl.Sexe)</td>
+                            <td>@Html.DisplayFor(modelItem => empl.Departement)</td>
+                            <td>@Html.DisplayFor(modelItem => empl.Salaire)</td>
+                            <td>@Html.DisplayFor(modelItem => empl.Adresse)</td>
+                            <td>@Html.DisplayFor(modelItem => empl.Fonction)</td>
+                            <td>@Html.DisplayFor(modelItem => empl.Tele)</td>
+                            <td><a asp-action="Update" asp-route-id="@empl.EmployeeId"><i class="icon-trash"></i>Update<span class="glyphicon glyphicon-refresh"></span></a></td>
+                            <td><a asp-action="Delete" asp-route-id="@empl.EmployeeId"><i class="icon-trash"></i>Delete<span class="glyphicon glyphicon-trash"></span></a></td>
+                        </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
