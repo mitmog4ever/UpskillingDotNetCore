@@ -1,0 +1,108 @@
+
+
+   --- Document décrivant les requêtes pour création la table et les procedures stockée
+/****** Object:  Table [dbo].[Employees]    Script Date: 30/12/2019 01:10:37 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Employees](
+	[EmployeeId] [int] IDENTITY(1,1) NOT NULL,
+	[Nom] [nvarchar](50) NOT NULL,
+	[Prenom] [nvarchar](50) NOT NULL,
+	[CIN] [nvarchar](50) NOT NULL,
+	[Sexe] [nvarchar](50) NOT NULL,
+	[Departement] [nvarchar](50) NOT NULL,
+	[Salaire] [decimal](9, 3) NOT NULL,
+[Adresse] [nvarchar](200) NOT NULL,
+[Tele]  [int] NOT NULL,
+[Fonction][nvarchar](200) NOT NULL
+) ON [PRIMARY]
+GO
+Création des procédures: 
+
+get all employee
+CREATE PROCEDURE PS_GetAllEmployee 
+AS
+BEGIN
+	SELECT * from Employees
+END
+
+insert
+CREATE PROCEDURE PS_InsertEmployee
+(
+	@Nom nvarchar(50) ='',
+	@Prenom nvarchar(50) ='',
+	@CIN nvarchar(50)='',
+	@Sexe nvarchar(50) ='',
+	@Departement nvarchar(50)='',
+	@Salaire decimal(9,3)=0,
+	@Adresse nvarchar(200) ='',
+@Tele  int = 0,
+@Fonction nvarchar(200) =''
+
+)
+AS
+BEGIN
+	insert into Employees (Nom,Prenom,CIN,Sexe,Departement,Salaire,Adresse,Tele,Fonction)
+	values(@Nom,@Prenom,@CIN,@Sexe,@Departement,@Salaire,@Adresse,@Tele,@Fonction)
+END
+
+Update employee
+CREATE PROCEDURE PS_UpdateEmployee
+(
+	@EmployeeId int =0,
+	@Nom nvarchar(50) ='',
+	@Prenom nvarchar(50) ='',
+	@CIN nvarchar(50)='',
+	@Sexe nvarchar(50) ='',
+	@Departement nvarchar(50)='',
+	@Salaire decimal(9,3)=0,
+	@Adresse nvarchar(200) ='',
+@Tele  int = 0,
+@Fonction nvarchar(200) =''
+)
+AS
+BEGIN
+	Update  Employees set Nom = @Nom,
+                         Prenom = @Prenom,
+                         CIN = @CIN,
+                         Sexe = @Sexe,
+                         Departement = @Departement,
+                         Salaire = @Salaire,
+ Adresse =@Adresse,
+ Tele = @Tele,
+ Fonction =@Fonction
+
+                     where EmployeeId = @EmployeeId  
+END
+
+CREATE PROCEDURE PS_GetEmployeeById
+(
+	@EmployeeId int =0
+
+)
+AS
+BEGIN
+	select * from Employees
+                     where EmployeeId = @EmployeeId  
+END
+
+CREATE PROCEDURE PS_DeleteEmployeeById
+(
+	@EmployeeId int =0
+
+)
+AS
+BEGIN
+	delete from Employees
+                     where EmployeeId = @EmployeeId  
+END
+
+USE [LearningDB]
+GO
+
+
+
